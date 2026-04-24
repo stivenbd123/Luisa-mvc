@@ -1,0 +1,342 @@
+/* ============================================================
+   ARCHIVO: public/css/styleCRUDMedicos.css
+   PROPÓSITO: Estilos propios del módulo de médicos y especialidades
+              (views/html/Medicos/CRUD_Medicos_Y_Especialidades.php).
+   COLOR DISTINTIVO: Morado (#6f42c1) — cada módulo tiene su propio
+              color para identificación visual rápida en el sistema:
+              Usuarios = azul (#2c7be5)
+              Pacientes = verde (#28a745)
+              Médicos   = morado (#6f42c1)
+   BASE:      Estructura idéntica a styleCRUDPacientes.css.
+              Solo cambia el color principal y se agrega .modal-sm
+              para el modal pequeño de especialidades.
+   ============================================================ */
+
+
+/* ============================================================
+   BODY
+   ============================================================ */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Fondo gris azulado claro — consistente en todos los módulos del sistema. */
+    background-color: #f4f6f9;
+}
+
+
+/* ============================================================
+   HEADER — barra superior MORADA del módulo de médicos
+   ============================================================ */
+
+header {
+    /* "#6f42c1" = morado Bootstrap — color profesional que diferencia
+       el módulo de médicos del de pacientes (verde) y usuarios (azul). */
+    background: #6f42c1;
+
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* ============================================================
+   BOTÓN "VOLVER AL HOME"
+   ============================================================ */
+
+.home-btn {
+    background: white;
+
+    /* Texto morado sobre fondo blanco — inversión del esquema del header. */
+    color: #6f42c1;
+
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.home-btn:hover {
+    background: #f2f2f2;
+}
+
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+.container {
+    padding: 30px;
+}
+
+
+/* ============================================================
+   BARRA SUPERIOR (título + botón de acción)
+   Usada DOS veces en esta vista: una para especialidades y otra para médicos.
+   ============================================================ */
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+/* ============================================================
+   BOTONES (clase base + modificadores)
+   ============================================================ */
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Botón principal: morado del módulo. */
+.btn-primary {
+    background-color: #6f42c1;
+    color: white;
+}
+
+/* Botón editar: naranja — acción de modificación. */
+.btn-warning {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+/* Botón eliminar: rojo — acción destructiva. */
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+}
+
+/* Botón cancelar: gris neutro — sin impacto, cierra el modal. */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+
+/* ============================================================
+   ALERTAS DE SESIÓN
+   ============================================================ */
+
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.success-alert {
+    background-color: #e6ffed;
+    color: #1e7e34;
+    border: 1px solid #b7ebc6;
+}
+
+.error-alert {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    border: 1px solid #ffb3b3;
+}
+
+
+/* ============================================================
+   TABLAS
+   Esta vista tiene DOS tablas: especialidades y médicos.
+   Ambas usan los mismos estilos definidos aquí.
+   "table" sin clase aplica a TODAS las tablas del documento.
+   ============================================================ */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+
+    /* "overflow: hidden" = recorta los bordes para que el border-radius
+       funcione correctamente en las celdas de las esquinas. */
+    overflow: hidden;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    /* "margin-bottom: 30px" = espacio entre la tabla de especialidades
+       y la barra superior de la tabla de médicos que viene debajo.
+       Importante en esta vista porque hay DOS tablas apiladas. */
+    margin-bottom: 30px;
+}
+
+/* Cabecera de ambas tablas: morado con texto blanco. */
+table thead {
+    background-color: #6f42c1;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Zebra striping — filas pares con fondo gris muy claro. */
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+/* ============================================================
+   MODAL — OVERLAY (fondo oscuro semitransparente)
+   Aplica a AMBOS modales: #especialidadModal y #medicoModal.
+   ============================================================ */
+
+.modal {
+    /* Oculto por defecto — JavaScript lo muestra con display:'flex'. */
+    display: none;
+
+    /* "position: fixed" = cubre la ventana completa independientemente del scroll. */
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Negro al 50% de opacidad = oscurece el fondo visible detrás del modal. */
+    background: rgba(0,0,0,0.5);
+
+    /* Centra .modal-content horizontal y verticalmente dentro del overlay. */
+    justify-content: center;
+    align-items: center;
+
+    /* "z-index: 1000" = el modal se dibuja por encima de todos los demás elementos.
+       Un z-index alto garantiza que ningún otro elemento tape el modal.
+       z-index solo funciona en elementos con position != static. */
+    z-index: 1000;
+}
+
+
+/* ============================================================
+   MODAL CONTENT — tarjeta blanca del modal grande (médicos)
+   Ancho 500px — igual al modal de pacientes para dos columnas.
+   ============================================================ */
+
+.modal-content {
+    background: white;
+    padding: 25px;
+
+    /* "width: 500px" = suficientemente ancho para filas de dos columnas. */
+    width: 500px;
+
+    border-radius: 10px;
+}
+
+/* ============================================================
+   MODAL CONTENT PEQUEÑO — tarjeta del modal de especialidades
+   ".modal-sm" es un modificador de tamaño para el modal más simple.
+   Especialidades solo tiene un campo (nombre) — no necesita 500px.
+   ============================================================ */
+
+.modal-sm {
+    /* "width: 380px" = más estrecho que el modal de médicos (500px).
+       Un modal pequeño para un formulario simple mejora la UX —
+       no hay exceso de espacio vacío alrededor del campo. */
+    width: 380px;
+}
+
+.modal-content h3 {
+    /* Elimina el margen superior predeterminado del <h3>. */
+    margin-top: 0;
+}
+
+
+/* ============================================================
+   GRUPOS DE CAMPOS
+   ============================================================ */
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+/* Inputs y select dentro de .form-group. */
+.form-group input,
+.form-group select {
+    /* "width: 100%" = ocupa todo el ancho del .form-group.
+       A diferencia de otros CSS donde se usa 95%, aquí se usa 100%
+       con box-sizing para mejor control del tamaño total. */
+    width: 100%;
+
+    /* "box-sizing: border-box" = el padding y el border se incluyen
+       DENTRO del ancho declarado (width: 100%).
+       Sin esto, width:100% + padding:8px harían que el input
+       fuera más ancho que su contenedor (100% + 16px de padding). */
+    box-sizing: border-box;
+
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Etiquetas de los campos. */
+.form-group label {
+    /* "display: block" = el label ocupa su propia línea sobre el input. */
+    display: block;
+
+    /* "margin-bottom: 4px" = pequeño espacio entre el label y el input. */
+    margin-bottom: 4px;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #34495e;
+}
+
+
+/* ============================================================
+   FILA DE DOS COLUMNAS EN EL MODAL
+   ============================================================ */
+
+.row {
+    display: flex;
+    gap: 10px;
+
+    /* "margin-bottom: 12px" = espacio entre filas del formulario del modal. */
+    margin-bottom: 12px;
+}
+
+/* Cada columna de la fila recibe el mismo espacio disponible. */
+.row .form-group {
+    /* "flex: 1" = distribución igualitaria — cada columna ocupa el 50%. */
+    flex: 1;
+
+    /* Se anula el margin-bottom del .form-group dentro de .row
+       porque el espacio entre filas ya lo maneja el margin-bottom de .row. */
+    margin-bottom: 0;
+}
+
+
+/* ============================================================
+   ÁREA DE BOTONES DEL MODAL
+   ============================================================ */
+
+.modal-actions {
+    /* Botones alineados a la derecha — patrón estándar de UX. */
+    text-align: right;
+
+    margin-top: 15px;
+
+    /* "display: flex" + "justify-content: flex-end" + "gap: 8px"
+       = alinea los botones a la derecha con espacio entre ellos.
+       Alternativa más moderna a text-align: right para botones. */
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}

@@ -1,0 +1,320 @@
+/* ============================================================
+   BODY
+   ============================================================ */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+header {
+    background: #dc3545;
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-btn {
+    background: white;
+    color: #dc3545;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.home-btn:hover { background: #f2f2f2; }
+
+.container { padding: 30px; }
+
+
+/* ============================================================
+   CAJA DE FILTROS DE BÚSQUEDA
+   Panel blanco con inputs y botones para buscar por nombre/cédula.
+   ============================================================ */
+
+.filter-box {
+    background: white;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    /* "margin-bottom: 24px" = espacio entre el panel de filtros y la tabla. */
+    margin-bottom: 24px;
+}
+
+.filter-box h3 {
+    margin: 0 0 14px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Fila de inputs y botones dentro del .filter-box. */
+.filter-row {
+    display: flex;
+    gap: 12px;
+
+    /* "flex-wrap: wrap" = si no caben todos en una línea (pantallas pequeñas),
+       los elementos saltan a la siguiente línea. */
+    flex-wrap: wrap;
+}
+
+/* Inputs dentro de .filter-row. */
+.filter-row input {
+    /* "flex: 1" = cada input toma el espacio disponible igualmente.
+       Con dos inputs, cada uno ocupa el 50% menos los botones. */
+    flex: 1;
+
+    /* "min-width: 180px" = el input no se encoge por debajo de 180px.
+       Combinado con flex-wrap, salta a otra línea antes de encogerse. */
+    min-width: 180px;
+
+    padding: 9px 12px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.filter-row input:focus {
+    outline: none;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220,53,69,0.12);
+}
+
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+
+.btn {
+    padding: 9px 18px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.85; }
+
+.btn-primary   { background-color: #dc3545; color: white; }
+.btn-secondary { background-color: #6c757d; color: white; }
+
+/* "btn-sm" = variante pequeña para el botón "Ver" dentro de la tabla. */
+.btn-sm { padding: 5px 12px; font-size: 13px; }
+
+
+/* ============================================================
+   CONTADOR DE RESULTADOS
+   Texto pequeño que muestra "X resultado(s) encontrado(s)".
+   ============================================================ */
+
+.result-info {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+
+/* ============================================================
+   TABLA DE HISTORIAL
+   ".table-wrapper" añade scroll horizontal en pantallas pequeñas.
+   "min-width: 750px" = la tabla no se comprime por debajo de este ancho.
+   ============================================================ */
+
+.table-wrapper {
+    /* "overflow-x: auto" = scroll HORIZONTAL solo en este contenedor
+       cuando la tabla es más ancha que la pantalla.
+       El resto de la página no tiene scroll horizontal. */
+    overflow-x: auto;
+
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+
+    /* "min-width: 750px" = la tabla mantiene un ancho mínimo.
+       Si la pantalla es más estrecha, .table-wrapper activa el scroll. */
+    min-width: 750px;
+}
+
+table thead { background-color: #dc3545; color: white; }
+
+table th, table td {
+    /* "padding: 12px 14px" = más padding horizontal (14px) que en otras vistas (12px).
+       La tabla de historial tiene más columnas — el padding extra ayuda a la legibilidad. */
+    padding: 12px 14px;
+    text-align: center;
+    font-size: 14px;
+}
+
+table tr:nth-child(even) { background-color: #f9f9f9; }
+
+/* "tbody tr:hover" = resaltado al pasar el cursor sobre cualquier fila del cuerpo.
+   "transition: background 0.15s" = el cambio de color es suave.
+   NUEVA en esta vista — las otras tablas del sistema no tienen hover en filas. */
+table tbody tr:hover {
+    background-color: #fff0f1;
+    transition: background 0.15s;
+}
+
+
+/* ============================================================
+   BADGES DE ESTADO (mismos que en styleCRUDcitas.css)
+   ============================================================ */
+
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.status.agendada   { background: #fff3cd; color: #856404; }
+.status.confirmada { background: #d1e7dd; color: #0f5132; }
+.status.cancelada  { background: #f8d7da; color: #842029; }
+.status.atendida   { background: #d0e4ff; color: #084298; }
+
+
+/* ============================================================
+   MENSAJE DE "SIN RESULTADOS" DENTRO DE LA TABLA
+   ============================================================ */
+
+.no-results {
+    text-align: center;
+    color: #999;
+    padding: 30px;
+    font-size: 15px;
+}
+
+
+/* ============================================================
+   SPINNER DE CARGA
+   Visible solo durante las peticiones AJAX.
+   JavaScript lo muestra/oculta con mostrarSpinner(true/false).
+   ============================================================ */
+
+.spinner {
+    /* "display: none" = oculto por defecto. */
+    display: none;
+
+    text-align: center;
+    padding: 20px;
+    color: #dc3545;
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   MODAL DE DETALLE
+   ============================================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    width: 520px;
+
+    /* "max-width: 95vw" = en pantallas muy pequeñas, el modal no excede el 95% del ancho.
+       "vw" = viewport width: 1vw = 1% del ancho de la ventana. */
+    max-width: 95vw;
+
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content h3 {
+    margin: 0 0 18px;
+    font-size: 18px;
+    color: #333;
+    border-bottom: 2px solid #dc3545;
+    padding-bottom: 10px;
+}
+
+
+/* ============================================================
+   GRID DE DETALLE DE LA CITA
+   Muestra los campos de la cita en dos columnas.
+   NUEVO en esta vista — los otros modales usan .form-group vertical.
+   ============================================================ */
+
+.detalle-grid {
+    /* "display: grid" = distribución en cuadrícula de 2 columnas. */
+    display: grid;
+
+    /* "1fr 1fr" = dos columnas de igual ancho.
+       Cada una ocupa el 50% del ancho disponible. */
+    grid-template-columns: 1fr 1fr;
+
+    /* "gap: 10px 20px" = dos valores separados:
+       10px de espacio entre FILAS, 20px entre COLUMNAS. */
+    gap: 10px 20px;
+}
+
+/* Cada campo de información en el grid. */
+.detalle-item label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+
+    /* "text-transform: uppercase" = el texto del label en mayúsculas.
+       Contraste visual entre el label pequeño/gris en mayúsculas
+       y el valor grande/oscuro en minúsculas. */
+    text-transform: uppercase;
+
+    /* "letter-spacing: 0.5px" = espaciado entre letras.
+       Mejora la legibilidad del texto en mayúsculas. */
+    letter-spacing: 0.5px;
+
+    margin-bottom: 2px;
+}
+
+.detalle-item span {
+    font-size: 14px;
+    color: #333;
+}
+
+/* "detalle-item full" = campo que ocupa las DOS columnas del grid.
+   Usado para campos largos como nombre completo y correos.
+   "grid-column: 1 / -1" = desde la primera hasta la última columna. */
+.detalle-item.full { grid-column: 1 / -1; }
+
+
+/* ============================================================
+   ÁREA DE BOTONES DEL MODAL
+   ============================================================ */
+
+.modal-actions {
+    text-align: right;
+    margin-top: 22px;
+}
